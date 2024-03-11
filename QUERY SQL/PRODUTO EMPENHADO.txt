@@ -1,0 +1,43 @@
+SELECT 
+B2_COD AS 'Código do Produto',
+B1_GRUPO AS 'Grupo do Produto',
+B1_DESC AS 'Descrição do Produto',
+B1_TIPO AS 'Tipo do Produto',
+B2_LOCAL AS 'Armazém',
+B2_LOCALIZ AS 'Descrição do Armazém',
+B2_QATU AS 'Saldo Atual',
+B1_UM AS 'Unidade de Médida',
+B2_QEMP AS 'Quantidade Empenhada',
+B2_RESERVA AS 'Quantidade Reservada',
+B2_QEMPSA AS 'Quantidade Prevista S.A',
+B2_CM1 AS 'Estoque Disponivel',
+CONVERT(MONEY,B2_VATU1) AS 'Valor em Estoque',
+B2_VATU1 AS 'Valor em Estoque'
+
+FROM SB2040
+
+JOIN SB1040 SB1 ON B2_COD = B1_COD AND SB1.D_E_L_E_T_ = ' '
+
+WHERE SB2040.D_E_L_E_T_ = ' '
+AND (B2_QEMP <> '0' Or B2_RESERVA <> '0' Or B2_QEMPSA <> '0')
+
+---------------------------------------------------------------------
+
+Final
+
+SELECT 
+B2_COD AS 'Cod. Produto',
+B1_GRUPO AS 'Grupo',
+B1_DESC AS 'Desc. Produto',
+B1_TIPO AS 'Tipo',
+B2_LOCAL AS 'Armazém',
+B2_LOCALIZ AS 'Desc. Armazém',
+B2_QATU AS 'Saldo Atual',
+B1_UM AS 'U.M',
+B2_QEMP AS 'Qtd. Empenhada',
+B2_RESERVA AS 'Qtd. Reservada',
+B2_QEMPSA AS 'Qtd Prevista S.A'
+FROM SB2040
+JOIN SB1040 SB1 ON B2_COD = B1_COD AND SB1.D_E_L_E_T_ = ' '
+WHERE SB2040.D_E_L_E_T_ = ' '
+AND ( B2_QEMP <> '0' or B2_RESERVA <> '0' or B2_QEMPSA <> '0')

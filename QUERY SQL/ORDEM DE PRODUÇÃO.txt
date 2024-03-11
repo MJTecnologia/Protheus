@@ -1,0 +1,47 @@
+SELECT
+
+C2_NUM AS 'N° DA OP',
+C2_ITEM AS 'ITEM DA OP',
+C2_PRODUTO AS 'COD PROD',
+B1_DESC AS 'DESC PROD',
+C2_LOCAL AS 'ARMAZÉM',
+C2_CC AS 'CC',
+C2_QUANT AS 'QTD DA OP',
+C2_UM AS 'UM',
+C2_SEGUM AS '2° UM',
+Convert(Varchar,Convert(Date,C2_DATPRI),102) AS 'DT PREVISTA INICIO',
+Convert(Varchar,Convert(Date,C2_DATPRF),102) AS 'DT PREVISTA ENTREGA',
+Convert(Varchar,Convert(Date,C2_EMISSAO),102) AS 'EMISSÃO',
+C2_PRIOR AS 'PRIORIDADE DA OP',
+C2_QUJE AS 'QTD PRODUZIDA',
+Convert(Varchar,Convert(Date,C2_DATRF),102) AS 'DT REAL FIM OP',
+
+CASE
+        WHEN C2_DESTINA = 'E' THEN 'Estoque'
+        WHEN C2_DESTINA = 'C' THEN 'Consumo'
+        WHEN C2_DESTINA = 'P' THEN 'Pedido'
+        ELSE 'Não Definido'
+END AS 'DESTINO DA PRODUÇÃO',
+
+Convert(Money,C2_VATU1) AS 'R$ ATUAL DA OP',
+C2_VINI1 AS 'VALOR INICIAL',
+C2_PERDA AS 'PERDA DA OP',
+
+CASE
+        WHEN C2_TPOP = 'F' THEN 'Firme'
+        WHEN C2_TPOP = 'P' THEN 'Prevista'
+		ELSE 'Não Definido'
+END AS 'TP DA OP',
+
+CASE
+        WHEN C2_TPPR = 'I' THEN 'Interna'
+        WHEN C2_TPPR = 'E' THEN 'Externa'
+        WHEN C2_TPPR = 'R' THEN 'Retrabalho'
+	  WHEN C2_TPPR = 'O' THEN 'Outros'
+        ELSE 'Não Definido'
+END AS 'TP DA PRODUÇÃO'
+
+
+FROM SC2040
+
+JOIN SB1040 SB1 ON C2_PRODUTO = B1_COD AND SC2040.D_E_L_E_T_= ' '
